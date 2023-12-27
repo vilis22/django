@@ -5,8 +5,6 @@ from .models import DemographicStatistics, Indicators, Territories
 from .forms import UserForms
 
 
-аf = 1 + 1
-f = 2
 def index(request):
     if request.method == "POST":
         form = UserForms(request.POST)
