@@ -33,8 +33,8 @@ def index(request):
     values1 = []
     values2 = []
     for y in years:
-        values1.append(int(data_by_indicator['Число браков в городской местности']['values'][y]))
-        values2.append(int(data_by_indicator['Число браков в сельской местности']['values'][y]))
+        values1.append(int(data_by_indicator['Число браков']['values'][y]))
+        values2.append(int(data_by_indicator['Число разводов']['values'][y]))
 
     context_data = {
         'form': form,

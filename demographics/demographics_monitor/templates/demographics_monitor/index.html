@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <title>Браки и разводы</title>
     {% load static %}
-
     {# Подключение CSS #}
     <link rel="stylesheet" href="{% static 'css/highcharts.css'%}" type="text/css">
-
     {# Подключение JavaScript #}
     <script src="{% static 'js/highcharts.js' %}"></script>
     <script src="{% static 'js/exporting.js' %}"></script>
@@ -21,11 +19,10 @@
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Запросить">
+    <input type="submit" value="Показать">
 </form>
 
 <br>
-<div class="highcharts-data-table">
 <table>
     <caption>Таблица 1. Основные показатели брачности и разводимости населения</caption>
     <tr>
@@ -34,7 +31,6 @@
         <th colspan="3">Значения показателей</th>
     </tr>
     <tr>
-        {# Комментарий #}
         {% for year in years %}
         <th>{{ year }}</th>
         {% endfor %}
@@ -43,20 +39,20 @@
     {% for indicator, data in data_by_indicator.items %}
     <tr>
         <td>{{ indicator }}</td>
-        <td style="text-align:center;">{{ data.unit }}</td>
+        <td>{{ data.unit }}</td>
         {% for year in years %}
-        <td style="text-align:center;">{{ data.values|get_item:year }}</td>
+        <td>{{ data.values|get_item:year }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
 </table>
-</div>
 
-{# Рисуем график#}
+{# Рисуем график #}
 <figure class="highcharts-figure">
     <div id="container"></div>
     <script>
     Highcharts.chart('container', {
+        colors: ['#32CD32', '#FF69B4'],
         chart: {
             type: 'column'
         },
@@ -80,7 +76,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Человек'
+                text: 'человек'
             }
         },
         tooltip: {
@@ -88,17 +84,22 @@
         },
         plotOptions: {
             column: {
-                pointPadding: 0.05,
-                borderWidth: 0
+                pointPadding: 0.1,
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    crop: false,
+                    overflow: 'none'
+                }
             }
         },
         series: [
             {
-                name: 'Город',
+                name: 'Браки',
                 data: {{ values1|safe }}
             },
             {
-                name: 'Село',
+                name: 'Разводы',
                 data: {{ values2|safe }}
             }
         ]
