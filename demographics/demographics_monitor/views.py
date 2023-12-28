@@ -5,6 +5,7 @@ from .models import DemographicStatistics, Indicators, Territories
 from .forms import UserForms
 
 
+
 def index(request):
     if request.method == "POST":
         form = UserForms(request.POST)
