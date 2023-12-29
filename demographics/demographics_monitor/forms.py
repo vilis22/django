@@ -1,10 +1,13 @@
 from django import forms
-import datetime
 
 
-def year_choices():
-    return [(r, r) for r in range(datetime.date.today().year-1, 2009, -1)]
-
-
-class UserForms(forms.Form):
-    year = forms.ChoiceField(choices=year_choices)
+class PeriodSelectionForm(forms.Form):
+    YEAR_CHOICES = [(i, i) for i in range(2015, 2023)]
+    start_date = forms.ChoiceField(
+        choices=YEAR_CHOICES,
+        initial=2020,
+    )
+    end_date = forms.ChoiceField(
+        choices=YEAR_CHOICES,
+        initial=2022,
+    )
